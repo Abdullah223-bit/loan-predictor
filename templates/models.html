@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Model Comparison</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/models">Model Comparison</a>
+    <a href="/results">Results</a>
+</div>
+
+<div class="container">
+    <h1>Machine Learning Model Comparison</h1>
+
+    <table border="1" width="100%" cellpadding="8">
+        <tr>
+            <th>Model</th>
+            <th>Accuracy (%)</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Logistic Regression</td>
+            <td>{{ metrics["Logistic Regression"] }}%</td>
+            <td>Simple and efficient classifier</td>
+        </tr>
+        <tr>
+            <td>Decision Tree</td>
+            <td>{{ metrics["Decision Tree"] }}%</td>
+            <td>Easy to interpret but prone to overfitting</td>
+        </tr>
+        <tr>
+            <td>Random Forest</td>
+            <td>{{ metrics["Random Forest"] }}%</td>
+            <td>Best performing ensemble model</td>
+        </tr>
+        <tr>
+            <td>SVM</td>
+            <td>{{ metrics["SVM"] }}%</td>
+            <td>Effective for complex decision boundaries</td>
+        </tr>
+    </table>
+</div>
+<div class="container">
+    <h1>Results & Evaluation</h1>
+    <h3>Accuracy Comparison</h3>
+    <img src="{{ url_for('static', filename='graphs/accuracy.png') }}" width="100%">
+
+    <h3>Confusion Matrix</h3>
+    <img src="{{ url_for('static', filename='graphs/confusion_matrix.png') }}" width="100%">
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/models">Model Comparison</a>
+    <a href="/results">Results</a>
+</div>
+
+<div class="result-wrapper">
+
+    <div class="result-card 
+        {% if result == 'Loan Approved' %}
+            approved
+        {% else %}
+            rejected
+        {% endif %}
+    ">
+    <!-- <div class="history-section">
+        <h3>Prediction History</h3>
+        <ul>
+            {% for item in history %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </div> -->
+
+
+
+        <!-- Icon -->
+        <!-- {% if result == 'Loan Approved' %}
+            <i class="fa-solid fa-circle-check result-icon"></i>
+        {% else %}
+            <i class="fa-solid fa-circle-xmark result-icon"></i>
+        {% endif %} -->
+
+        <!-- Heading -->
+        <h1 class="result-title">{{ result }}</h1>
+
+        <!-- Message -->
+        <!-- {% if result == 'Loan Approved' %}
+            <p class="result-text">
+                Congratulations! 🎉  
+                Based on the provided information, your loan is likely to be approved.
+            </p>
+        {% else %}
+            <p class="result-text">
+                Unfortunately ❌  
+                The loan does not meet approval criteria at this time.
+            </p>
+        {% endif %} -->
+
+        <!-- Buttons -->
+        <div class="result-actions">
+            <a href="/" class="btn primary">New Prediction</a>
+            <a href="/history" class="btn secondary">View History</a>
+        </div>
+
+    </div>
+
+</div>
+<div class="chart-container">
+    <canvas id="historyChart"></canvas>
+</div>
+
+
+
+</body>
+</html>
+
+<script>
+fetch("/prediction-data")
+.then(response => response.json())
+.then(data => {
+    const ctx = document.getElementById('historyChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Approved', 'Rejected'],
+            datasets: [{
+                label: 'Loan Predictions',
+                data: [data.approved, data.rejected],
+                backgroundColor: ['#2ecc71', '#e74c3c']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+});
+</script>
